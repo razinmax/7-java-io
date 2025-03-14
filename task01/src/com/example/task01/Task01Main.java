@@ -15,7 +15,17 @@ public class Task01Main {
     }
 
     public static int checkSumOfStream(InputStream inputStream) throws IOException {
-        // your implementation here
-        return 0;
+        if (inputStream == null) {
+            throw new IllegalArgumentException();
+        }
+        int checksum = 0;
+        int byteRead;
+
+        while ((byteRead = inputStream.read()) != -1) {
+            // В байте только младшие 8 бит, преобразуем в unsigned byte
+            checksum = Integer.rotateLeft(checksum, 1) ^ byteRead;
+        }
+
+        return checksum;
     }
 }
